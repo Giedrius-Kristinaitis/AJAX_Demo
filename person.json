@@ -1,0 +1,10 @@
+{
+    "name": "BET",
+    "surname": "KAS",
+    "number": 860000000,
+    "address": {
+        "country": "Lithuania",
+        "city": "Kaunas",
+        "street": "Some street"
+    }
+}
