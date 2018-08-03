@@ -3,10 +3,11 @@
  * @param {string} method request method to use
  * @param {string} url url of the requested file
  * @param {function} callback callback function to be executed when the request finishes
- * @param {array} header request header - array of 2 strings: header and value
+ * @param {array} headers array of header names
+ * @param {array} headerValues array of header values
  * @param {string} parameters request parameters if the method used is POST
  */
-function ajax(method, url, callback, header, parameters){
+function ajax(method, url, callback, headers, headerValues, parameters){
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function(){
@@ -19,8 +20,10 @@ function ajax(method, url, callback, header, parameters){
 
     xhttp.open(method, url, true);
 
-    if(header !== undefined){
-        xhttp.setRequestHeader(header[0], header[1]);
+    if(headers !== undefined && headerValues !== undefined && headers.length === headerValues.length){
+        for(let i = 0; i < headers.length; i++){
+            xhttp.setRequestHeader(headers[i], headerValues[i]);
+        }
     }
 
     xhttp.send(parameters);
@@ -35,7 +38,7 @@ function generateString(){
     // ajax request using POST
     ajax('POST', 'generator.php', function(){
         updateGeneratedStringText(this.responseText);
-    }, ['Content-type', 'application/x-www-form-urlencoded'], 'length=' + length);
+    }, ['Content-type'], ['application/x-www-form-urlencoded'], 'length=' + length);
 }
 
 /**
